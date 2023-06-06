@@ -1,0 +1,12 @@
+# =================== System: Kibana Server ===================
+
+server.port: 5601
+
+
+server.host: "10.15.20.222"
+
+
+elasticsearch.hosts: ["http://10.15.20.222:9200"]
+
+
+elasticsearch.username: "kibana_system"

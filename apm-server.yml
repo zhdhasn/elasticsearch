@@ -1,0 +1,45 @@
+######################### APM Server Configuration #########################
+
+################################ APM Server ################################
+
+apm-server:
+  # Defines the host and port the server is listening on. Use "unix:/path/to.sock" to listen on a unix domain socket.
+  host: "10.15.20.222:8200"
+
+
+#-------------------------- Elasticsearch output --------------------------
+output.elasticsearch:
+
+  hosts: ["10.15.20.222:9200"]
+
+  username: "elastic"
+  password: "Konasl@123"
+
+indices:
+- index: "apm-%{[beat.version]}-sourcemap"
+  when.contains:
+    processor.event: "sourcemap"
+
+- index: "apm-%{[beat.version]}-error-%{+yyyy.MM.dd}"
+  when.contains:
+    processor.event: "error"
+
+- index: "apm-%{[beat.version]}-transaction-%{+yyyy.MM.dd}"
+  when.contains:
+    processor.event: "transaction"
+
+- index: "apm-%{[beat.version]}-span-%{+yyyy.MM.dd}"
+  when.contains:
+    processor.event: "span"
+- index: "apm-%{[beat.version]}-metric-%{+yyyy.MM.dd}"
+  when.contains:
+    processor.event: "metric"
+
+- index: "apm-%{[beat.version]}-onboarding-%{+yyyy.MM.dd}"
+  when.contains:
+    processor.event: "onboarding"
+
+
+path: /var/log/apm-server
+name: apm-server
+logging.json: true
